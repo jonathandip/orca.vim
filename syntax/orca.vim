@@ -1548,6 +1548,107 @@ syn match orcaKeyword contained "\<EXTRAPOLATEEP3(ANO,DLPNO-MP2)\>"
 syn match orcaKeyword contained "\<EXTRAPOLATEEP3(AUG-ANO,DLPNO-MP2)\>"
 syn match orcaKeyword contained "\<EXTRAPOLATEEP3(SAUG-ANO,DLPNO-MP2)\>"
 
+" ORCA 6.x new DFT functionals (r2SCAN hybrids and double-hybrids)
+syn match orcaKeyword contained "\<R2SCANH\>"
+syn match orcaKeyword contained "\<R2SCAN50\>"
+syn match orcaKeyword contained "\<PR2SCAN50\>"
+syn match orcaKeyword contained "\<RI-PR2SCAN50\>"
+syn match orcaKeyword contained "\<DLPNO-PR2SCAN50\>"
+syn match orcaKeyword contained "\<PR2SCAN69\>"
+syn match orcaKeyword contained "\<RI-PR2SCAN69\>"
+syn match orcaKeyword contained "\<DLPNO-PR2SCAN69\>"
+syn match orcaKeyword contained "\<WPR2SCAN50\>"
+syn match orcaKeyword contained "\<RI-WPR2SCAN50\>"
+syn match orcaKeyword contained "\<DLPNO-WPR2SCAN50\>"
+syn match orcaKeyword contained "\<KPR2SCAN50\>"
+syn match orcaKeyword contained "\<RI-KPR2SCAN50\>"
+syn match orcaKeyword contained "\<DLPNO-KPR2SCAN50\>"
+syn match orcaKeyword contained "\<R2SCAN-CIDH\>"
+syn match orcaKeyword contained "\<RI-R2SCAN-CIDH\>"
+syn match orcaKeyword contained "\<DLPNO-R2SCAN-CIDH\>"
+syn match orcaKeyword contained "\<R2SCAN-QIDH\>"
+syn match orcaKeyword contained "\<RI-R2SCAN-QIDH\>"
+syn match orcaKeyword contained "\<DLPNO-R2SCAN-QIDH\>"
+syn match orcaKeyword contained "\<R2SCAN0-DH\>"
+syn match orcaKeyword contained "\<RI-R2SCAN0-DH\>"
+syn match orcaKeyword contained "\<DLPNO-R2SCAN0-DH\>"
+syn match orcaKeyword contained "\<R2SCAN0-2\>"
+syn match orcaKeyword contained "\<RI-R2SCAN0-2\>"
+syn match orcaKeyword contained "\<DLPNO-R2SCAN0-2\>"
+
+" ORCA 6.x composite 3C methods
+syn match orcaKeyword contained "\<WB97X-3C\>"
+syn match orcaKeyword contained "\<B3LYP-3C\>"
+syn match orcaKeyword contained "\<QM/WB97X-3C\>"
+syn match orcaKeyword contained "\<QM/B3LYP-3C\>"
+syn match orcaKeyword contained "\<QM/WB97X-3C/MM\>"
+syn match orcaKeyword contained "\<QM/B3LYP-3C/MM\>"
+
+" ORCA 6.x revised dispersion functionals
+syn match orcaKeyword contained "\<WB97M(2)\>"
+syn match orcaKeyword contained "\<RI-WB97M(2)\>"
+syn match orcaKeyword contained "\<DLPNO-WB97M(2)\>"
+syn match orcaKeyword contained "\<WB97X-D4REV\>"
+syn match orcaKeyword contained "\<WB97M-D4REV\>"
+syn match orcaKeyword contained "\<REVDSD-PBEP86-D4\>"
+syn match orcaKeyword contained "\<RI-REVDSD-PBEP86-D4\>"
+syn match orcaKeyword contained "\<DLPNO-REVDSD-PBEP86-D4\>"
+syn match orcaKeyword contained "\<REVDOD-PBEP86-D4\>"
+syn match orcaKeyword contained "\<RI-REVDOD-PBEP86-D4\>"
+syn match orcaKeyword contained "\<DLPNO-REVDOD-PBEP86-D4\>"
+
+" ORCA 6.x non-covalent double-hybrid
+syn match orcaKeyword contained "\<B2NC-PLYP\>"
+syn match orcaKeyword contained "\<RI-B2NC-PLYP\>"
+syn match orcaKeyword contained "\<DLPNO-B2NC-PLYP\>"
+
+" ORCA 6.x new correlated wavefunction methods
+syn match orcaKeyword contained "\<NEVPT3\>"
+syn match orcaKeyword contained "\<RI-NEVPT3\>"
+syn match orcaKeyword contained "\<DLPNO-NEVPT2\>"
+syn match orcaKeyword contained "\<ICE-FR-NEVPT2\>"
+syn match orcaKeyword contained "\<CCSDTQ\>"
+syn match orcaKeyword contained "\<RPAC\>"
+syn match orcaKeyword contained "\<UHF-IP-EOM-CCSD\>"
+syn match orcaKeyword contained "\<UHF-EA-EOM-CCSD\>"
+syn match orcaKeyword contained "\<UHF-STEOM-CCSD\>"
+
+" ORCA 6.x optimization and structure keywords
+syn match orcaKeyword contained "\<GOAT-ENTROPY\>"
+syn match orcaKeyword contained "\<GOAT-EXPLORE\>"
+syn match orcaKeyword contained "\<GOAT-REACT\>"
+syn match orcaKeyword contained "\<GOAT-DIVERSITY\>"
+syn match orcaKeyword contained "\<GOAT-COARSE\>"
+syn match orcaKeyword contained "\<RIGIDBODYOPT\>"
+syn match orcaKeyword contained "\<S-IDPP\>"
+
+" ORCA 6.x docking keywords
+syn match orcaKeyword contained "\<QUICKDOCK\>"
+syn match orcaKeyword contained "\<NORMALDOCK\>"
+syn match orcaKeyword contained "\<COMPLETEDOCK\>"
+syn match orcaKeyword contained "\<DOCK(GFN-FF)\>"
+syn match orcaKeyword contained "\<DOCK(GFN0-XTB)\>"
+syn match orcaKeyword contained "\<DOCK(GFN1-XTB)\>"
+syn match orcaKeyword contained "\<DOCK(GFN2-XTB)\>"
+
+" ORCA 6.x SCF and analysis keywords
+syn match orcaKeyword contained "\<DELTASCF\>"
+syn match orcaKeyword contained "\<LEANSCF\>"
+syn match orcaKeyword contained "\<NOLEANSCF\>"
+syn match orcaKeyword contained "\<MIXGUESS\>"
+syn match orcaKeyword contained "\<BUPO\>"
+syn match orcaKeyword contained "\<\(NO\)\?AUTOTRAH\>"
+syn match orcaKeyword contained "\<ADLD\>"
+syn match orcaKeyword contained "\<ADEX\>"
+syn match orcaKeyword contained "\<MBIS\>"
+syn match orcaKeyword contained "\<RESP\>"
+syn match orcaKeyword contained "\<DRACO\>"
+syn match orcaKeyword contained "\<DBOC\>"
+syn match orcaKeyword contained "\<VCD\>"
+syn match orcaKeyword contained "\<SMD\>"
+syn match orcaKeyword contained "\<SMD18\>"
+syn match orcaKeyword contained "\<COVALED\>"
+
 
 syn match orcaBasis contained "\<DEF2-SD\>"
 syn match orcaBasis contained "\<SDD\>"
@@ -2074,6 +2175,60 @@ syn match orcaBasis contained "\<XFIT/4\>"
 syn match orcaBasis contained "\<AUTOAUX\>"
 syn match orcaBasis contained "\<AUTOAUXTRIM\>"
 
+" ORCA 6.x new basis sets: vDZP (for wB97X-3C)
+syn match orcaBasis contained "\<VDZP\>"
+syn match orcaBasis contained "\<vDZP\>"
+
+" ORCA 6.x new basis sets: CRENBL ECP family
+syn match orcaBasis contained "\<CRENBL\>"
+syn match orcaBasis contained "\<CRENBL-ECP\>"
+
+" ORCA 6.x new basis sets: HGBS family (hydrogenic Gaussian basis sets)
+syn match orcaBasis contained "\<HGBS-5\>"
+syn match orcaBasis contained "\<HGBS-7\>"
+syn match orcaBasis contained "\<HGBS-9\>"
+syn match orcaBasis contained "\<HGBSP1-5\>"
+syn match orcaBasis contained "\<HGBSP1-7\>"
+syn match orcaBasis contained "\<HGBSP1-9\>"
+syn match orcaBasis contained "\<HGBSP2-5\>"
+syn match orcaBasis contained "\<HGBSP2-7\>"
+syn match orcaBasis contained "\<HGBSP2-9\>"
+syn match orcaBasis contained "\<HGBSP3-5\>"
+syn match orcaBasis contained "\<HGBSP3-7\>"
+syn match orcaBasis contained "\<HGBSP3-9\>"
+syn match orcaBasis contained "\<AHGBS-5\>"
+syn match orcaBasis contained "\<AHGBS-7\>"
+syn match orcaBasis contained "\<AHGBS-9\>"
+syn match orcaBasis contained "\<AHGBSP1-5\>"
+syn match orcaBasis contained "\<AHGBSP1-7\>"
+syn match orcaBasis contained "\<AHGBSP1-9\>"
+syn match orcaBasis contained "\<AHGBSP2-5\>"
+syn match orcaBasis contained "\<AHGBSP2-7\>"
+syn match orcaBasis contained "\<AHGBSP2-9\>"
+syn match orcaBasis contained "\<AHGBSP3-5\>"
+syn match orcaBasis contained "\<AHGBSP3-7\>"
+syn match orcaBasis contained "\<AHGBSP3-9\>"
+
+" ORCA 6.x new basis sets: pcX family (core X-ray spectroscopy)
+syn match orcaBasis contained "\<PCX-1\>"
+syn match orcaBasis contained "\<PCX-2\>"
+syn match orcaBasis contained "\<PCX-3\>"
+syn match orcaBasis contained "\<PCX-4\>"
+syn match orcaBasis contained "\<AUG-PCX-1\>"
+syn match orcaBasis contained "\<AUG-PCX-2\>"
+syn match orcaBasis contained "\<AUG-PCX-3\>"
+syn match orcaBasis contained "\<AUG-PCX-4\>"
+
+" ORCA 6.x new basis sets: pcH family (hyperfine coupling)
+syn match orcaBasis contained "\<PCH-1\>"
+syn match orcaBasis contained "\<PCH-2\>"
+syn match orcaBasis contained "\<PCH-3\>"
+syn match orcaBasis contained "\<PCH-4\>"
+syn match orcaBasis contained "\<AUG-PCH-1\>"
+syn match orcaBasis contained "\<AUG-PCH-2\>"
+syn match orcaBasis contained "\<AUG-PCH-3\>"
+syn match orcaBasis contained "\<AUG-PCH-4\>"
+
 " block directive keywords
 syn match orcaBlock contained "\<method\>"
 syn match orcaBlock contained "\<basis\>"
@@ -2137,196 +2292,224 @@ syn match orcaBlock contained "\<shark\>"
 syn match orcaBlock contained "\<symmetry\>"
 syn match orcaBlock contained "\<sym\>"
 syn match orcaBlock contained "\<xtb\>"
+syn match orcaBlock contained "\<goat\>"
+syn match orcaBlock contained "\<docker\>"
+syn match orcaBlock contained "\<solvator\>"
+syn match orcaBlock contained "\<casresp\>"
+syn match orcaBlock contained "\<frag\>"
+syn match orcaBlock contained "\<casdft\>"
+syn match orcaBlock contained "\<mcd\>"
 syn match orcaBlock "%maxcore\>" contains=startBlock
 syn match orcaBlock "%moread\>" contains=startBlock
 
 " block directive regions
-syn region methodBlock start="%method" end="end"
+syn region methodBlock start="%method" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat,
          \ orcaMethodInt,orcaMethodBool,orcaMethodReal,orcaMethodString,orcaMethodAlias,
          \ orcaMethodLogical
-syn region methodBlock start="%basis" end="end"
+syn region methodBlock start="%basis" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%scf" end="end"
+syn region methodBlock start="%scf" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%mp2" end="end"
+syn region methodBlock start="%mp2" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%cis" end="end"
+syn region methodBlock start="%cis" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%tddft" end="end"
+syn region methodBlock start="%tddft" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%mrci" end="end"
+syn region methodBlock start="%mrci" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%geom" end="end"
+syn region methodBlock start="%geom" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%freq" end="end"
+syn region methodBlock start="%freq" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%vpt2" end="end"
+syn region methodBlock start="%vpt2" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%esd" end="end"
+syn region methodBlock start="%esd" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%dftmrci" end="end"
+syn region methodBlock start="%dftmrci" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%coords" end="end"
+syn region methodBlock start="%coords" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%output" end="end"
+syn region methodBlock start="%output" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%ci" end="end"
+syn region methodBlock start="%ci" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%plots" end="end"
+syn region methodBlock start="%plots" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%parameters" end="end"
+syn region methodBlock start="%parameters" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%ndoparas" end="end"
+syn region methodBlock start="%ndoparas" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%rel" end="end"
+syn region methodBlock start="%rel" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%dkh" end="end"
+syn region methodBlock start="%dkh" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%pal" end="end"
+syn region methodBlock start="%pal" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%cosmo" end="end"
+syn region methodBlock start="%cosmo" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%rr" end="end"
+syn region methodBlock start="%rr" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%eprnmr" end="end"
+syn region methodBlock start="%eprnmr" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%loc" end="end"
+syn region methodBlock start="%loc" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%elprop" end="end"
+syn region methodBlock start="%elprop" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%casscf" end="end"
+syn region methodBlock start="%casscf" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%mcrpa" end="end"
+syn region methodBlock start="%mcrpa" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%mdci" end="end"
+syn region methodBlock start="%mdci" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%dlpnocc" end="end"
+syn region methodBlock start="%dlpnocc" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%mm" end="end"
+syn region methodBlock start="%mm" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%mtr" end="end"
+syn region methodBlock start="%mtr" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%xes" end="end"
+syn region methodBlock start="%xes" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%chelpg" end="end"
+syn region methodBlock start="%chelpg" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%numgrad" end="end"
+syn region methodBlock start="%numgrad" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%mecp" end="end"
+syn region methodBlock start="%mecp" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%ecp" end="end"
+syn region methodBlock start="%ecp" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%rocis" end="end"
+syn region methodBlock start="%rocis" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%mrcc" end="end"
+syn region methodBlock start="%mrcc" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%cipsi" end="end"
+syn region methodBlock start="%cipsi" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%ice" end="end"
+syn region methodBlock start="%ice" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%iceci" end="end"
+syn region methodBlock start="%iceci" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%md" end="end"
+syn region methodBlock start="%md" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%nbo" end="end"
+syn region methodBlock start="%nbo" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%lft" end="end"
+syn region methodBlock start="%lft" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%autoci" end="end"
+syn region methodBlock start="%autoci" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%cpcm" end="end"
+syn region methodBlock start="%cpcm" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%cim" end="end"
+syn region methodBlock start="%cim" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%compound" end="end"
+syn region methodBlock start="%compound" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%neb" end="end"
+syn region methodBlock start="%neb" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%irc" end="end"
+syn region methodBlock start="%irc" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%anmr" end="end"
+syn region methodBlock start="%anmr" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%cregen" end="end"
+syn region methodBlock start="%cregen" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%confscript" end="end"
+syn region methodBlock start="%confscript" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%anmrrc" end="end"
+syn region methodBlock start="%anmrrc" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%qmmm" end="end"
+syn region methodBlock start="%qmmm" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%conical" end="end"
+syn region methodBlock start="%conical" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%ecrism" end="end"
+syn region methodBlock start="%ecrism" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%shark" end="end"
+syn region methodBlock start="%shark" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%symmetry" end="end"
+syn region methodBlock start="%symmetry" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%sym" end="end"
+syn region methodBlock start="%sym" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
-syn region methodBlock start="%xtb" end="end"
+syn region methodBlock start="%xtb" end="\<end\>"
+         \ transparent keepend extend fold
+         \ contains=startBlock,endBlock,orcaBlock
+syn region methodBlock start="%goat" end="\<end\>"
+         \ transparent keepend extend fold
+         \ contains=startBlock,endBlock,orcaBlock
+syn region methodBlock start="%docker" end="\<end\>"
+         \ transparent keepend extend fold
+         \ contains=startBlock,endBlock,orcaBlock
+syn region methodBlock start="%solvator" end="\<end\>"
+         \ transparent keepend extend fold
+         \ contains=startBlock,endBlock,orcaBlock
+syn region methodBlock start="%casresp" end="\<end\>"
+         \ transparent keepend extend fold
+         \ contains=startBlock,endBlock,orcaBlock
+syn region methodBlock start="%frag" end="\<end\>"
+         \ transparent keepend extend fold
+         \ contains=startBlock,endBlock,orcaBlock
+syn region methodBlock start="%casdft" end="\<end\>"
+         \ transparent keepend extend fold
+         \ contains=startBlock,endBlock,orcaBlock
+syn region methodBlock start="%mcd" end="\<end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock
 
@@ -2780,6 +2963,33 @@ syn match orcaMethodAlias contained "\<C_B973C\>"
 syn match orcaMethodAlias contained "\<C_SCAN\>"
 syn match orcaMethodAlias contained "\<C_RSCAN\>"
 syn match orcaMethodAlias contained "\<C_R2SCAN\>"
+syn match orcaMethodAlias contained "\<R2SCANH\>"
+syn match orcaMethodAlias contained "\<R2SCAN50\>"
+syn match orcaMethodAlias contained "\<PR2SCAN50\>"
+syn match orcaMethodAlias contained "\<PR2SCAN69\>"
+syn match orcaMethodAlias contained "\<WPR2SCAN50\>"
+syn match orcaMethodAlias contained "\<KPR2SCAN50\>"
+syn match orcaMethodAlias contained "\<R2SCAN-CIDH\>"
+syn match orcaMethodAlias contained "\<R2SCAN-QIDH\>"
+syn match orcaMethodAlias contained "\<R2SCAN0-DH\>"
+syn match orcaMethodAlias contained "\<R2SCAN0-2\>"
+syn match orcaMethodAlias contained "\<WB97X-D4REV\>"
+syn match orcaMethodAlias contained "\<WB97M-D4REV\>"
+syn match orcaMethodAlias contained "\<WB97M2\>"
+syn match orcaMethodAlias contained "\<B2NC-PLYP\>"
+syn match orcaMethodAlias contained "\<REVDSD-PBEP86-D4\>"
+syn match orcaMethodAlias contained "\<REVDOD-PBEP86-D4\>"
+syn match orcaMethodAlias contained "\<srPBE0\>"
+syn match orcaMethodAlias contained "\<TLDA\>"
+syn match orcaMethodAlias contained "\<TPBE\>"
+syn match orcaMethodAlias contained "\<TPBE0\>"
+syn match orcaMethodAlias contained "\<CTLDA\>"
+syn match orcaMethodAlias contained "\<CTPBE\>"
+syn match orcaMethodAlias contained "\<CTPBE0\>"
+syn match orcaMethodAlias contained "\<X_R2SCANH\>"
+syn match orcaMethodAlias contained "\<X_R2SCAN50\>"
+syn match orcaMethodAlias contained "\<C_R2SCANH\>"
+syn match orcaMethodAlias contained "\<C_R2SCAN50\>"
 syn match orcaMethodAlias contained "\<CG\>"
 syn match orcaMethodAlias contained "\<DIIS\>"
 syn match orcaMethodAlias contained "\<POPLE\>"
