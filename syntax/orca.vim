@@ -1522,232 +1522,30 @@ syn keyword orcaBasis contained PCH-1 PCH-2 PCH-3 PCH-4 AUG-PCH-1 AUG-PCH-2 AUG-
 " Block directives (% ... end)
 " - Inline directives: %maxcore, %moread (no end)
 " - Paired regions: all others
-" To add a new block: append its name to the methodBlock start= pattern
-"   and add its keywords below under orcaBlock.
+" To add a new block:
+"   1. append its name to the methodBlock start= alternation below
+"   2. append its name to the orcaBlock keyword list (defined after orcaMethodAlias)
 " ============================================================
-" block directive keywords
-syn keyword orcaBlock contained method basis scf mp2 cis tddft mrci geom
-syn keyword orcaBlock contained freq vpt2 esd dftmrci coords output ci plots
-syn keyword orcaBlock contained parameters ndoparas rel dkh pal cosmo rr eprnmr
-syn keyword orcaBlock contained loc elprop casscf mcrpa mdci dlpnocc mm mtr
-syn keyword orcaBlock contained xes chelpg numgrad mecp ecp rocis mrcc cipsi
-syn keyword orcaBlock contained ice iceci md nbo lft autoci cpcm cim
-syn keyword orcaBlock contained compound neb irc anmr cregen confscript anmrrc qmmm
-syn keyword orcaBlock contained conical ecrism shark symmetry sym xtb goat docker
-syn keyword orcaBlock contained solvator casresp frag casdft mcd
 syn match orcaBlock "%maxcore\>" contains=startBlock
 syn match orcaBlock "%moread\>" contains=startBlock
 
 " block directive regions
-syn region methodBlock start="%method" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat,orcaNumber,orcaString,orcaFloat,
-         \ orcaMethodInt,orcaMethodBool,orcaMethodReal,orcaMethodString,orcaMethodAlias,
-         \ orcaMethodLogical
-syn region methodBlock start="%basis" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%scf" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%mp2" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%cis" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%tddft" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%mrci" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%geom" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%freq" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%vpt2" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%esd" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%dftmrci" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%coords" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%output" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%ci" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%plots" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%parameters" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%ndoparas" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%rel" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%dkh" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%pal" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%cosmo" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%rr" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%eprnmr" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%loc" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%elprop" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%casscf" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%mcrpa" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%mdci" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%dlpnocc" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%mm" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%mtr" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%xes" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%chelpg" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%numgrad" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%mecp" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%ecp" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%rocis" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%mrcc" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%cipsi" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%ice" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%iceci" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%md" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%nbo" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%lft" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%autoci" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%cpcm" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%cim" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%compound" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%neb" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%irc" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%anmr" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%cregen" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%confscript" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%anmrrc" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%qmmm" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%conical" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%ecrism" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%shark" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%symmetry" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%sym" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%xtb" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%goat" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%docker" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%solvator" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%casresp" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%frag" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%casdft" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
-syn region methodBlock start="%mcd" end="\<end\>"
-         \ transparent keepend extend fold
-         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat
+" end= matches 'end' only when it is the first non-whitespace token on a line,
+" so inline 'end' tokens (e.g. scan range terminators) do not close the block.
+" To add a new block: add its name to the alternation below AND to orcaBlock above.
+syn region methodBlock
+         \ start="%\(method\|basis\|scf\|mp2\|cis\|tddft\|mrci\|geom\|freq\|vpt2\|esd\|dftmrci\)"
+         \ start="%\(coords\|output\|ci\|plots\|parameters\|ndoparas\|rel\|dkh\|pal\|cosmo\|rr\)"
+         \ start="%\(eprnmr\|loc\|elprop\|casscf\|mcrpa\|mdci\|dlpnocc\|mm\|mtr\|xes\|chelpg\)"
+         \ start="%\(numgrad\|mecp\|ecp\|rocis\|mrcc\|cipsi\|ice\|iceci\|md\|nbo\|lft\|autoci\)"
+         \ start="%\(cpcm\|cim\|compound\|neb\|irc\|anmr\|cregen\|confscript\|anmrrc\|qmmm\)"
+         \ start="%\(conical\|ecrism\|shark\|symmetry\|sym\|xtb\|goat\|docker\|solvator\)"
+         \ start="%\(casresp\|frag\|casdft\|mcd\)"
+         \ end="^\s*end\>"
+         \ transparent keepend extend fold
+         \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat,
+         \ orcaMethodInt,orcaMethodBool,orcaMethodReal,orcaMethodString,
+         \ orcaMethodAlias,orcaMethodLogical
 
 " ============================================================
 " Block parameters (inside % ... end blocks)
@@ -1867,6 +1665,18 @@ syn match orcaMethodAlias contained "\<ZNDDO_\(1\|2\)\>"
 syn match orcaMethodAlias contained "\<NDDO_\(1\|2\|MK\)\>"
 syn keyword orcaMethodAlias contained MNDO AM1 PM3 MNDO_D MP2 GAMESS
 
+" orcaBlock is defined after orcaMethodAlias so it wins the priority tie
+" for words that appear in both (e.g. GEOM, SCAN, METHOD).
+syn keyword orcaBlock contained method basis scf mp2 cis tddft mrci geom
+syn keyword orcaBlock contained freq vpt2 esd dftmrci coords output ci plots
+syn keyword orcaBlock contained parameters ndoparas rel dkh pal cosmo rr eprnmr
+syn keyword orcaBlock contained loc elprop casscf mcrpa mdci dlpnocc mm mtr
+syn keyword orcaBlock contained xes chelpg numgrad mecp ecp rocis mrcc cipsi
+syn keyword orcaBlock contained ice iceci md nbo lft autoci cpcm cim
+syn keyword orcaBlock contained compound neb irc anmr cregen confscript anmrrc qmmm
+syn keyword orcaBlock contained conical ecrism shark symmetry sym xtb goat docker
+syn keyword orcaBlock contained solvator casresp frag casdft mcd
+
 " ============================================================
 " Logical constants
 " ============================================================
@@ -1877,7 +1687,7 @@ syn keyword orcaMethodLogical contained FALSE NO OFF
 " Block markers
 " ============================================================
 syn match startBlock "%" contained
-syn keyword endBlock end contained
+syn match endBlock "^\s*end\>" contained
 
 " ============================================================
 " Special directives, literals, comments
