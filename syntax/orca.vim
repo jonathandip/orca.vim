@@ -1023,6 +1023,14 @@ syn match orcaKeyword contained "\<DOCK(GFN0-XTB)\>"
 syn match orcaKeyword contained "\<DOCK(GFN1-XTB)\>"
 syn match orcaKeyword contained "\<DOCK(GFN2-XTB)\>"
 
+" ORCA 6.x CASDFT / srDFT / MCPDFT functionals (! line keywords)
+syn keyword orcaKeyword contained ctLDA ctPBE ctPBE0
+syn keyword orcaKeyword contained srLDA srPBE srPBE0
+syn keyword orcaKeyword contained sr-ctLDA sr-ctPBE sr-ctPBE0
+syn keyword orcaKeyword contained CI-ctLDA CI-ctPBE CI-ctPBE0
+syn keyword orcaKeyword contained CI-srLDA CI-srPBE CI-srPBE0
+syn keyword orcaKeyword contained CI-sr-ctLDA CI-sr-ctPBE CI-sr-ctPBE0
+
 " ORCA 6.x SCF and analysis keywords
 syn keyword orcaKeyword contained DELTASCF LEANSCF NOLEANSCF MIXGUESS BUPO
 syn match orcaKeyword contained "\<\(NO\)\?AUTOTRAH\>"
@@ -1530,8 +1538,9 @@ syn match orcaBlock "%maxcore\>" contains=startBlock
 syn match orcaBlock "%moread\>" contains=startBlock
 
 " block directive regions
-" end= matches 'end' only when it is the first non-whitespace token on a line,
-" so inline 'end' tokens (e.g. scan range terminators) do not close the block.
+" end= matches 'end' only at column 0 (no leading whitespace), so indented
+" 'end' tokens closing sub-blocks (e.g. CASDFT...end, Constraints...end)
+" do not close the outer block region.
 " To add a new block: add its name to the alternation below AND to orcaBlock above.
 syn region methodBlock
          \ start="%\(method\|basis\|scf\|mp2\|cis\|tddft\|mrci\|geom\|freq\|vpt2\|esd\|dftmrci\)"
@@ -1540,8 +1549,8 @@ syn region methodBlock
          \ start="%\(numgrad\|mecp\|ecp\|rocis\|mrcc\|cipsi\|ice\|iceci\|md\|nbo\|lft\|autoci\)"
          \ start="%\(cpcm\|cim\|compound\|neb\|irc\|anmr\|cregen\|confscript\|anmrrc\|qmmm\)"
          \ start="%\(conical\|ecrism\|shark\|symmetry\|sym\|xtb\|goat\|docker\|solvator\)"
-         \ start="%\(casresp\|frag\|casdft\|mcd\)"
-         \ end="^\s*end\>"
+         \ start="%\(casresp\|frag\|casdft\|mcd\|qgprop\|magrelax\)"
+         \ end="^end\>"
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat,
          \ orcaMethodInt,orcaMethodBool,orcaMethodReal,orcaMethodString,
@@ -1675,7 +1684,7 @@ syn keyword orcaBlock contained xes chelpg numgrad mecp ecp rocis mrcc cipsi
 syn keyword orcaBlock contained ice iceci md nbo lft autoci cpcm cim
 syn keyword orcaBlock contained compound neb irc anmr cregen confscript anmrrc qmmm
 syn keyword orcaBlock contained conical ecrism shark symmetry sym xtb goat docker
-syn keyword orcaBlock contained solvator casresp frag casdft mcd
+syn keyword orcaBlock contained solvator casresp frag casdft mcd qgprop magrelax
 
 " ============================================================
 " Logical constants
@@ -1687,7 +1696,7 @@ syn keyword orcaMethodLogical contained FALSE NO OFF
 " Block markers
 " ============================================================
 syn match startBlock "%" contained
-syn match endBlock "^\s*end\>" contained
+syn match endBlock "^end\>" contained
 
 " ============================================================
 " Special directives, literals, comments
@@ -1756,6 +1765,10 @@ syn keyword orcaBlockParam contained P_Symmetry P_UNO_AtPopMO_L P_UNO_AtPopMO_M 
 syn keyword orcaBlockParam contained P_UNO_ReducedOrbPopMO_L P_UNO_ReducedOrbPopMO_M DKH DKH1 DLU FiniteNuc IntAcc IORA
 syn keyword orcaBlockParam contained LightAtomThresh ModelDens ModelPot OneCenter Order PictureChange Rel1C RelDLU
 syn keyword orcaBlockParam contained RelFull ScaleZORA SpecialGridIntAcc StorageLevel VELOCITY X2C Xalpha ZORA
+syn keyword orcaBlockParam contained AtomRadii cds_cpcm cut_area cut_swf draco draco_charges dracoisodens fepstype
+syn keyword orcaBlockParam contained fopt ndiv num_leb pmin refrac rmin rsolv scale_gauss
+syn keyword orcaBlockParam contained smdsolvent sola solb solc solg solh soln soln25
+syn keyword orcaBlockParam contained solvent surfacetype thresh_h thresh_noth vopt xfeps
 syn keyword orcaBlockParam contained Corrected COUPLED CPCMccm Final Outlying SMD18 Accel Anneal
 syn keyword orcaBlockParam contained Append Atom Cell Celsius CenterCOM Colvar Colvars Constraint
 syn keyword orcaBlockParam contained CoordNumber Cube Cutoff DCD Define Define_Region Dihedral Distance
