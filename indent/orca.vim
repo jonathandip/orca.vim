@@ -27,8 +27,9 @@ function! OrcaIndent(lnum)
     return max(0, indent(prev) - shiftwidth())
   endif
 
-  " After a %block line → indent one level (4 spaces)
-  if prevline =~? '^\s*%\w'
+  " After a %block line → indent one level (4 spaces).
+  " Inline directives (no closing 'end') are excluded.
+  if prevline =~? '^\s*%\w' && prevline !~? '^\s*%\(moinp\|maxcore\|moread\)\>'
     return shiftwidth()
   endif
 
