@@ -1536,6 +1536,7 @@ syn keyword orcaBasis contained PCH-1 PCH-2 PCH-3 PCH-4 AUG-PCH-1 AUG-PCH-2 AUG-
 " ============================================================
 syn match orcaBlock "%maxcore\>" contains=startBlock
 syn match orcaBlock "%moread\>" contains=startBlock
+syn match orcaBlock "%moinp\>" contains=startBlock
 
 " block directive regions
 " end= matches 'end' only at column 0 (no leading whitespace), so indented
@@ -1554,7 +1555,7 @@ syn region methodBlock
          \ transparent keepend extend fold
          \ contains=startBlock,endBlock,orcaBlock,orcaNumber,orcaString,orcaFloat,
          \ orcaMethodInt,orcaMethodBool,orcaMethodReal,orcaMethodString,
-         \ orcaMethodAlias,orcaMethodLogical,orcaBlockParam
+         \ orcaMethodAlias,orcaMethodLogical,orcaBlockParam,orcaComment
 
 " ============================================================
 " Block parameters (inside % ... end blocks)
@@ -1898,10 +1899,10 @@ hi def link orcaNumber Number
 hi def link orcaFloat Float
 hi def link orcaBasis Type
 
-hi def link orcaMethodInt Type
-hi def link orcaMethodBool Type
-hi def link orcaMethodReal Type
-hi def link orcaMethodString Type
-hi def link orcaMethodAlias Identifier
-hi def link orcaBlockParam Type
+hi def link orcaMethodInt Special
+hi def link orcaMethodBool Special
+hi def link orcaMethodReal Special
+hi def link orcaMethodString Special
+hi def link orcaMethodAlias Special
+hi def link orcaBlockParam Special
 hi def link orcaMethodLogical Boolean

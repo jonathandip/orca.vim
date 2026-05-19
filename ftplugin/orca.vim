@@ -5,32 +5,26 @@ let b:did_ftplugin = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+" Capture plugin root at source time (<sfile> is undefined inside functions)
+let s:plugin_root = expand('<sfile>:p:h:h')
+
 setlocal commentstring=#\ %s
 setlocal comments=:#
-setlocal omnifunc=OrcaComplete
 setlocal nosmartindent
+setlocal completeopt=menu,menuone,noinsert
 
-" Tab/S-Tab: navigate popup when open, else normal indent
-inoremap <buffer> <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" Tab: accept highlighted item and close; S-Tab: navigate backwards.
+" s:AcceptCompletion sets a flag before returning <C-y> so that the
+" TextChangedI fired by the insertion doesn't immediately reopen the popup.
+let s:just_accepted = 0
+function! s:AcceptCompletion()
+  let s:just_accepted = 1
+  return "\<C-y>"
+endfunction
+inoremap <buffer> <expr> <Tab>   pumvisible() ? <SID>AcceptCompletion() : "\<Tab>"
 inoremap <buffer> <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" Auto-trigger omni completion; suppress the sub-mode message inside insert only
-augroup OrcaAutoComplete
-  autocmd InsertEnter  <buffer> set shortmess+=c
-  autocmd InsertLeave  <buffer> set shortmess-=c
-  autocmd TextChangedI <buffer> call OrcaAutoTrigger()
-augroup END
-
-function! OrcaAutoTrigger()
-  if pumvisible() | return | endif
-  if col('.') > 1 && getline('.')[col('.')-2] =~# '\w'
-    call feedkeys("\<C-x>\<C-o>", "n")
-  endif
-endfunction
-
-" Block parameter lists (from ORCA 6.1 manual, section 2.1.6).
-" This dict is the single source of truth: it drives both omni-completion and
-" syntax highlighting (see population loop below).
+" ─── Block parameter data ────────────────────────────────────────────────────
 if !exists("g:orca_block_params")
   let g:orca_block_params = {}
 
@@ -413,49 +407,52 @@ if !exists("g:orca_block_params")
 
 endif
 
-
-function! OrcaComplete(findstart, base)
-  if a:findstart
-    let line = getline('.')
-    let col = col('.') - 1
-    while col > 0 && line[col - 1] =~# '\w'
-      let col -= 1
-    endwhile
-    return col
+" ─── Simple keyword list (! line) ────────────────────────────────────────────
+" Parsed once per session from syntax/orca.vim. Only `syn keyword` lines are
+" extracted; `syn match` entries that use regex are intentionally skipped.
+function! s:LoadSimpleKeywords()
+  if exists('g:orca_simple_keywords') | return | endif
+  let syn_file = s:plugin_root . '/syntax/orca.vim'
+  if !filereadable(syn_file)
+    let g:orca_simple_keywords = []
+    return
   endif
-
-  let block = OrcaDetectBlock()
-  let candidates = []
-  if !empty(block) && has_key(g:orca_block_params, block)
-    let candidates = copy(g:orca_block_params[block])
-  else
-    for params in values(g:orca_block_params)
-      call extend(candidates, params)
-    endfor
-    call uniq(sort(candidates))
-  endif
-
-  if a:base ==# ''
-    return candidates
-  endif
-
-  let base_lc = tolower(a:base)
-  let n = len(a:base)
-  let matches = []
-  for word in candidates
-    if strpart(tolower(word), 0, n) ==# base_lc
-      call add(matches, word)
+  let keywords = []
+  for l in readfile(syn_file)
+    if l =~# '^syn keyword orca\(Keyword\|Basis\) contained '
+      let rest = substitute(l, '^syn keyword orca\(Keyword\|Basis\) contained\s\+', '', '')
+      call extend(keywords, split(rest, '\s\+'))
+    elseif l =~# '^syn match orca\(Keyword\|Basis\) contained '
+      " Extract literal keyword from \<WORD\> patterns. Patterns containing
+      " Vim regex metacharacters (e.g. \( \| ) have backslashes inside the
+      " word, so [^\\]* stops immediately and matchstr returns '', which we skip.
+      let kw = matchstr(l, '"\\<\zs[^\\]*\ze\\>"')
+      if !empty(kw)
+        call add(keywords, kw)
+      endif
     endif
   endfor
-  return matches
+  let g:orca_simple_keywords = uniq(sort(keywords))
 endfunction
 
-function! OrcaDetectBlock()
+" ─── Completion helpers ───────────────────────────────────────────────────────
+
+function! s:FilterList(list, base)
+  if a:base ==# ''
+    return copy(a:list)
+  endif
+  let base_lc = tolower(a:base)
+  let n = len(a:base)
+  return filter(copy(a:list), {_, w -> strpart(tolower(w), 0, n) ==# base_lc})
+endfunction
+
+" Walk backwards from cursor to find the enclosing %block name.
+function! s:DetectBlock()
   let lnum = line('.')
   let depth = 0
   while lnum > 0
     let l = getline(lnum)
-    if l =~? '^end\>'
+    if l =~? '^\s*end\>'
       let depth += 1
     else
       let m = matchstr(l, '^\s*%\zs\w\+')
@@ -471,6 +468,228 @@ function! OrcaDetectBlock()
   endwhile
   return ''
 endfunction
+
+" Inline directives that look like blocks but have no 'end' and no skeleton.
+let s:inline_directives = ['maxcore', 'moinp', 'moread']
+
+" Completion items for block names. Full blocks carry user_data so MaybeSkeleton
+" inserts the skeleton; inline directives don't.
+function! s:BlockNameItems(base)
+  let block_names = sort(keys(g:orca_block_params))
+  let all_names = block_names + s:inline_directives
+  call sort(all_names)
+  if !empty(a:base)
+    let n = len(a:base)
+    let base_lc = tolower(a:base)
+    call filter(all_names, {_, w -> strpart(w, 0, n) ==# base_lc})
+  endif
+  return map(all_names, {_, w ->
+    \ has_key(g:orca_block_params, w)
+    \ ? {'word': w, 'user_data': 'block:' . w}
+    \ : {'word': w}})
+endfunction
+
+" True when cursor is in the filename position of a "* xyzfile charge mult" line.
+function! s:IsXyzFileLine()
+  let before = strpart(getline('.'), 0, col('.') - 1)
+  return before =~? '^\s*\*\s\+xyzfile\s\+\S\+\s\+\S\+\s'
+endfunction
+
+" True when cursor is past %moinp (ready for the .gbw filename).
+function! s:IsMOInpLine()
+  let before = strpart(getline('.'), 0, col('.') - 1)
+  return before =~? '^\s*%moinp\s'
+endfunction
+
+" Candidates for the current cursor context (bang line or inside a block).
+function! s:Candidates(base)
+  let line = getline('.')
+
+  if line =~# '^\s*!'
+    call s:LoadSimpleKeywords()
+    return s:FilterList(g:orca_simple_keywords, a:base)
+  endif
+
+  if s:IsMOInpLine()
+    let dir = expand('%:p:h')
+    return map(glob(dir . '/' . a:base . '*.gbw', 0, 1), {_, f -> fnamemodify(f, ':t')})
+  endif
+
+  let block = s:DetectBlock()
+  if !empty(block) && has_key(g:orca_block_params, block)
+    return s:FilterList(g:orca_block_params[block], a:base)
+  endif
+
+  return []
+endfunction
+
+" ─── Auto-trigger ─────────────────────────────────────────────────────────────
+
+" s:completing_block is set during findstart so OrcaComplete's second call
+" knows to return block names without re-inspecting the line.
+let s:completing_block = 0
+
+function! s:AutoTrigger()
+  if pumvisible() | return | endif
+  if s:just_accepted | let s:just_accepted = 0 | return | endif
+  let col = col('.') - 1
+  if col < 1 | return | endif
+  let line = getline('.')
+  if strpart(line, 0, col) =~# '#' | return | endif
+  let ch = line[col - 1]
+
+  " % just typed: show all block names
+  if ch ==# '%'
+    let items = s:BlockNameItems('')
+    if !empty(items)
+      call complete(col + 1, items)
+    endif
+    return
+  endif
+
+  " On ! lines use whitespace-delimited tokens so that hyphenated names like
+  " def2-SVP are treated as one unit rather than split at the hyphen.
+  if line =~# '^\s*!'
+    if ch =~# '\s' | return | endif
+    let start = col - 1
+    while start > 0 && line[start - 1] =~# '\S'
+      let start -= 1
+    endwhile
+    let base = strpart(line, start, col - start)
+    if base ==# '!' | return | endif
+    let matches = s:Candidates(base)
+    if !empty(matches)
+      call complete(start + 1, matches)
+    endif
+    return
+  endif
+
+  " * xyzfile line: complete .xyz filenames from the buffer's directory
+  if s:IsXyzFileLine()
+    let dir = expand('%:p:h')
+    if ch =~# '\s'
+      " Space typed right after the multiplicity: show all xyz files
+      let files = map(glob(dir . '/*.xyz', 0, 1), {_, f -> fnamemodify(f, ':t')})
+      if !empty(files)
+        call complete(col + 1, files)
+      endif
+    else
+      " Partial filename already being typed: filter by prefix
+      let start = col - 1
+      while start > 0 && line[start - 1] =~# '\S'
+        let start -= 1
+      endwhile
+      let base = strpart(line, start, col - start)
+      let files = map(glob(dir . '/' . base . '*.xyz', 0, 1), {_, f -> fnamemodify(f, ':t')})
+      if !empty(files)
+        call complete(start + 1, files)
+      endif
+    endif
+    return
+  endif
+
+  " %moinp line: auto-insert "" on first space, then complete .gbw inside them
+  if s:IsMOInpLine()
+    if ch ==# ' ' && getline('.') =~? '^\s*%moinp\s*$'
+      " First space after %moinp: insert "", park cursor inside, trigger omni
+      call feedkeys('""' . "\<Left>" . "\<C-x>\<C-o>", 'n')
+      return
+    endif
+    if ch ==# '"'
+      " Opening quote typed manually: show all gbw files
+      let matches = s:Candidates('')
+      if !empty(matches)
+        call complete(col + 1, matches)
+      endif
+      return
+    endif
+    " \w chars inside quotes fall through to the general handler below,
+    " which calls s:Candidates → s:IsMOInpLine path for prefix filtering
+  endif
+
+  if ch !~# '\w' | return | endif
+
+  " Walk back to the start of the current word
+  let start = col - 1
+  while start > 0 && line[start - 1] =~# '\w'
+    let start -= 1
+  endwhile
+  let base = strpart(line, start, col - start)
+
+  " Word is immediately after %: filter block names
+  if start > 0 && line[start - 1] ==# '%'
+    let items = s:BlockNameItems(base)
+    if !empty(items)
+      call complete(start + 1, items)
+    endif
+    return
+  endif
+
+  " Inside a block
+  let matches = s:Candidates(base)
+  if !empty(matches)
+    call complete(start + 1, matches)
+  endif
+endfunction
+
+" ─── Skeleton insertion on block completion ───────────────────────────────────
+
+function! s:MaybeSkeleton()
+  let item = v:completed_item
+  if empty(item) | return | endif
+
+  " After a .gbw completion on a %moinp line, add closing " if not present
+  if getline('.') =~? '^\s*%moinp\s'
+    if !empty(get(item, 'word', '')) && getline('.')[col('.') - 1] !=# '"'
+      call feedkeys('"', 'n')
+    endif
+    return
+  endif
+
+  if get(item, 'user_data', '') !~# '^block:' | return | endif
+  let lnum = line('.')
+  call append(lnum, [repeat(' ', shiftwidth()), 'end'])
+  call feedkeys("\<Esc>jA", 'n')
+endfunction
+
+" ─── Omni-completion entry point (<C-x><C-o>) ─────────────────────────────────
+
+function! OrcaComplete(findstart, base)
+  if a:findstart
+    let s:completing_block = 0
+    let col = col('.') - 1
+    let line = getline('.')
+    " On ! lines use whitespace as the word boundary (same as auto-trigger)
+    if line =~# '^\s*!'
+      while col > 0 && line[col - 1] =~# '\S'
+        let col -= 1
+      endwhile
+      return col
+    endif
+    while col > 0 && line[col - 1] =~# '\w'
+      let col -= 1
+    endwhile
+    if col > 0 && line[col - 1] ==# '%'
+      let s:completing_block = 1
+    endif
+    return col
+  endif
+
+  if s:completing_block
+    return s:BlockNameItems(a:base)
+  endif
+  return s:Candidates(a:base)
+endfunction
+
+" ─── Buffer-local wiring ──────────────────────────────────────────────────────
+
+setlocal omnifunc=OrcaComplete
+
+augroup OrcaCompletion
+  autocmd! * <buffer>
+  autocmd TextChangedI <buffer> call s:AutoTrigger()
+  autocmd CompleteDone <buffer> call s:MaybeSkeleton()
+augroup END
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
