@@ -4,3 +4,5 @@
 orca.inp
 *.orca
 .claude/
+CLAUDE.md
+data/*
