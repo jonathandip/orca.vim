@@ -370,9 +370,9 @@ if !exists("g:orca_block_params")
     \ 'MBIS_ORIGIN_MULT', 'MBIS_ORIMULT_XYZ', 'Mulliken', 'NBO', 'NPA', 'RMAX',
     \ 'SmearTemp', 'VDWRADII']
 
-  let g:orca_block_params['nbo'] = ['DELKEYLIST', 'MO', 'NCS']
+  let g:orca_block_params['nbo'] = ['NBOKEYLIST', 'DELKEYLIST', 'COREKEYLIST', 'NRTSTRKEYLIST', 'NPEPAKEYLIST']
 
-  let g:orca_block_params['elprop'] = ['Polar']
+  let g:orca_block_params['elprop'] = ['Dipole', 'Quadrupole', 'Polar', 'Hyperpol', 'PolarVelocity', 'PolarDipQuad', 'PolarQuadQuad']
 
   let g:orca_block_params['qgprop'] = [
     \ 'COORDSTYPE', 'DERHSOC', 'HESSIAN', 'MODE', 'STEPSIZE']

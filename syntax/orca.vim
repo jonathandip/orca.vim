@@ -1228,6 +1228,7 @@ syn match orcaKeyword contained "\<SMD(M-XYLENE)\>"
 syn match orcaKeyword contained "\<SMD(O-XYLENE)\>"
 syn match orcaKeyword contained "\<SMD(P-XYLENE)\>"
 syn keyword orcaKeyword contained COVALED
+syn keyword orcaKeyword contained SlowConv VerySlowConv NormalConv EasyConv
 
 
 " ============================================================
@@ -1893,6 +1894,8 @@ syn keyword orcaBlockParam contained HessName modetype MList RSteps LSteps ddnc 
 syn keyword orcaBlockParam contained CoreOrb CoreOrbSOC RIXSOrb RIXSOrbOp RIXSOrbSOC MaxNVirt DoXAS
 syn keyword orcaBlockParam contained Shell_PQN
 syn keyword orcaBlockParam contained UseGeneralContraction PartialGCFlag FockFlag RIJFlag Prescreening ExtentOpt
+syn keyword orcaBlockParam contained Dipole Quadrupole Hyperpol PolarVelocity PolarDipQuad PolarQuadQuad
+syn keyword orcaBlockParam contained NBOKEYLIST COREKEYLIST NRTSTRKEYLIST NPEPAKEYLIST
 
 " Keep %block headers highlighted as blocks when a block name is also a valid
 " parameter elsewhere, e.g. %mm vs %method MM.
