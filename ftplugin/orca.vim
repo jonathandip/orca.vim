@@ -370,9 +370,9 @@ if !exists("g:orca_block_params")
     \ 'MBIS_ORIGIN_MULT', 'MBIS_ORIMULT_XYZ', 'Mulliken', 'NBO', 'NPA', 'RMAX',
     \ 'SmearTemp', 'VDWRADII']
 
-  let g:orca_block_params['nbo'] = ['DELKEYLIST', 'MO', 'NCS']
+  let g:orca_block_params['nbo'] = ['NBOKEYLIST', 'DELKEYLIST', 'COREKEYLIST', 'NRTSTRKEYLIST', 'NPEPAKEYLIST']
 
-  let g:orca_block_params['elprop'] = ['Polar']
+  let g:orca_block_params['elprop'] = ['Dipole', 'Quadrupole', 'Polar', 'Hyperpol', 'PolarVelocity', 'PolarDipQuad', 'PolarQuadQuad']
 
   let g:orca_block_params['qgprop'] = [
     \ 'COORDSTYPE', 'DERHSOC', 'HESSIAN', 'MODE', 'STEPSIZE']
@@ -412,6 +412,62 @@ if !exists("g:orca_block_params")
     \ 'InitHess', 'Interpolate_only', 'MaxIter', 'Monitor_Internals',
     \ 'PrintLevel', 'Scale_Displ_SD', 'Scale_Displ_SD_Corr', 'Scale_Init_Displ',
     \ 'SD_Corr_ParabolicFit', 'SD_ParabolicFit', 'TolMaxG', 'TolRMSG']
+
+  let g:orca_block_params['neb'] = [
+    \ 'Product', 'NImages', 'PrintLevel', 'TS', 'NEB_TS_Image', 'Restart_ALLXYZFile',
+    \ 'Restart_GBW_BaseName', 'CheckSCFConv', 'Product_PDBFile', 'TS_PDBFile',
+    \ 'Free_End', 'PreOpt', 'NSteps_FoundIntermediate', 'AbortIf_FoundIntermediate',
+    \ 'NPTS_Interpol', 'Interpolation', 'Prepare_Frags', 'Max_Frag_Dist', 'Bond_Cutoff',
+    \ 'Tangent', 'SpringType', 'SpringConst', 'SpringConst2', 'Energy_Weighted',
+    \ 'PerpSpring', 'LLT_Cos', 'Quatern', 'Fix_center', 'Remove_extern_Force',
+    \ 'Free_End_Type', 'Free_End_EC', 'Free_End_EC_End', 'Free_End_Kappa', 'ConvType',
+    \ 'CI', 'NEB_TS', 'Tol_MaxFP_I', 'Tol_RMSFP_I', 'Tol_MaxF_CI', 'Tol_RMSF_CI',
+    \ 'Tol_Turn_On_CI', 'Tol_Scale', 'Reparam_type', 'Reparam', 'Tol_Reparam',
+    \ 'Opt_Method', 'Maxmove', 'Stepsize', 'MaxIter', 'Local', 'LBFGS_Mem', 'LBFGS_DR',
+    \ 'LBFGS_Restart_On_Maxmove', 'LBFGS_Reparam_On_Restart', 'LBFGS_Precondition',
+    \ 'FIRE_INITIAL_DAMP', 'FIRE_DAMP_DECR', 'FIRE_STEP_INCR', 'FIRE_STEP_DECR',
+    \ 'FIRE_MAX_STEP', 'FIRE_RETENTION', 'Tol_Turn_On_Zoom', 'Zoom_Offset',
+    \ 'Zoom_Auto', 'Zoom_Alpha', 'Zoom_Interpolation', 'Zoom_PrintFullTrj',
+    \ 'IDPP_NMax', 'IDPP_Tol_MaxF', 'IDPP_ksp', 'IDPP_Alpha', 'IDPP_MaxMove',
+    \ 'IDPP_Debug', 'IDPP_Quatern', 'IDPP_Dist_Interpolation', 'IDPP_Bilinear_Partition',
+    \ 'SIDPP', 'SIDPP_Tol_MaxF', 'SIDPP_Reparam', 'SIDPP_Energy_Weighted_Tangent',
+    \ 'SIDPP_Even_NIm', 'SIDPP_Double_NIm', 'SIDPP_Ideal_Springconst',
+    \ 'SIDPP_HyperSearch', 'SIDPP_HyperSearch_StrictConnectivity', 'Monitor_Internals',
+    \ 'neb_end_xyzfile']
+
+  let g:orca_block_params['mecp'] = [
+    \ 'SurfCrossOpt', 'SurfCrossNumFreq', 'moinp', 'Mult', 'brokenSym',
+    \ 'casscf_nel', 'casscf_norb', 'casscf_mult', 'casscf_nroots',
+    \ 'casscf_bweight', 'casscf_weights']
+
+  let g:orca_block_params['conical'] = ['Method', 'ETol']
+
+  let g:orca_block_params['numgrad'] = ['CentralDiff', 'DX', 'TransInvar', 'Accuracy']
+
+  let g:orca_block_params['ice'] = [
+    \ 'nel', 'norb', 'nroots', 'integrals', 'icetype', 'Tgen', 'Tvar',
+    \ 'etol', 'cimode', 'UseMP2nat', 'UseIVOs', 'refs']
+
+  let g:orca_block_params['vpt2'] = [
+    \ 'VPT2', 'AnharmDisp', 'HessianCutoff', 'PrintLevel', 'MinimiseOrcaPrint',
+    \ 'AvgProp', 'PropDisp']
+
+  let g:orca_block_params['cim'] = ['CIMTHRESH']
+
+  let g:orca_block_params['mtr'] = [
+    \ 'HessName', 'modetype', 'MList', 'RSteps', 'LSteps', 'ddnc', 'dxyz', 'EnStep']
+
+  let g:orca_block_params['xes'] = [
+    \ 'CoreOrb', 'OrbOp', 'CoreOrbSOC', 'RIXSOrb', 'RIXSOrbOp', 'RIXSOrbSOC',
+    \ 'MaxNVirt', 'DoXAS', 'DoSOC', 'DoRIXS', 'DoDipoleLength', 'DoFullSemiclassical']
+
+  let g:orca_block_params['mrcc'] = ['method', 'ETol']
+
+  let g:orca_block_params['lft'] = ['NEl', 'Shell_PQN', 'Mult', 'NRoots']
+
+  let g:orca_block_params['shark'] = [
+    \ 'UseGeneralContraction', 'Printlevel', 'PartialGCFlag', 'FockFlag',
+    \ 'RIJFlag', 'Prescreening', 'ExtentOpt']
 
 endif
 
