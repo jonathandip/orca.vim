@@ -1869,6 +1869,29 @@ syn keyword orcaBlockParam contained NotAssigned NucleoticAcid SeqBackbone SEQNA
 syn keyword orcaBlockParam contained Water COORDSTYPE DERHSOC HESSIAN MODE STEPSIZE degenThresh doRaman gridMax gridMin
 syn keyword orcaBlockParam contained inputfile keepData magfld nGrid temperature DoEDA FRAG1 FRAG1_C FRAG1_FS FRAG1_M FRAG1_METHODFILE FRAG1_SF FRAG2
 syn keyword orcaBlockParam contained FRAG2_C FRAG2_M FRAG2_METHODFILE FRAG2_SF MO2 Pauli
+syn keyword orcaBlockParam contained NImages NEB_TS_Image Restart_ALLXYZFile Restart_GBW_BaseName CheckSCFConv
+syn keyword orcaBlockParam contained Product_PDBFile TS_PDBFile Free_End NSteps_FoundIntermediate AbortIf_FoundIntermediate
+syn keyword orcaBlockParam contained NPTS_Interpol Interpolation Prepare_Frags Max_Frag_Dist Bond_Cutoff
+syn keyword orcaBlockParam contained Tangent SpringType SpringConst SpringConst2 Energy_Weighted PerpSpring LLT_Cos
+syn keyword orcaBlockParam contained Quatern Fix_center Remove_extern_Force Free_End_Type Free_End_EC Free_End_EC_End Free_End_Kappa
+syn keyword orcaBlockParam contained ConvType NEB_TS Tol_MaxFP_I Tol_RMSFP_I Tol_MaxF_CI Tol_RMSF_CI Tol_Turn_On_CI
+syn keyword orcaBlockParam contained Tol_Scale Reparam_type Reparam Tol_Reparam Opt_Method Maxmove
+syn keyword orcaBlockParam contained LBFGS_Mem LBFGS_DR LBFGS_Restart_On_Maxmove LBFGS_Reparam_On_Restart LBFGS_Precondition
+syn keyword orcaBlockParam contained FIRE_INITIAL_DAMP FIRE_DAMP_DECR FIRE_STEP_INCR FIRE_STEP_DECR FIRE_MAX_STEP FIRE_RETENTION
+syn keyword orcaBlockParam contained Tol_Turn_On_Zoom Zoom_Offset Zoom_Auto Zoom_Alpha Zoom_Interpolation Zoom_PrintFullTrj
+syn keyword orcaBlockParam contained IDPP_NMax IDPP_Tol_MaxF IDPP_ksp IDPP_Alpha IDPP_MaxMove IDPP_Debug
+syn keyword orcaBlockParam contained IDPP_Quatern IDPP_Dist_Interpolation IDPP_Bilinear_Partition
+syn keyword orcaBlockParam contained SIDPP SIDPP_Tol_MaxF SIDPP_Reparam SIDPP_Energy_Weighted_Tangent
+syn keyword orcaBlockParam contained SIDPP_Even_NIm SIDPP_Double_NIm SIDPP_Ideal_Springconst
+syn keyword orcaBlockParam contained SIDPP_HyperSearch SIDPP_HyperSearch_StrictConnectivity neb_end_xyzfile
+syn keyword orcaBlockParam contained SurfCrossOpt SurfCrossNumFreq brokenSym
+syn keyword orcaBlockParam contained casscf_nel casscf_norb casscf_mult casscf_nroots casscf_bweight casscf_weights
+syn keyword orcaBlockParam contained integrals cimode UseMP2nat
+syn keyword orcaBlockParam contained AnharmDisp HessianCutoff MinimiseOrcaPrint AvgProp PropDisp
+syn keyword orcaBlockParam contained CIMTHRESH
+syn keyword orcaBlockParam contained HessName modetype MList RSteps LSteps ddnc dxyz EnStep
+syn keyword orcaBlockParam contained CoreOrb CoreOrbSOC RIXSOrb RIXSOrbOp RIXSOrbSOC MaxNVirt DoXAS
+syn keyword orcaBlockParam contained Shell_PQN
 
 " Keep %block headers highlighted as blocks when a block name is also a valid
 " parameter elsewhere, e.g. %mm vs %method MM.
