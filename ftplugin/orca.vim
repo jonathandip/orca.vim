@@ -525,7 +525,7 @@ function! s:DetectBlock()
 endfunction
 
 " Inline directives that look like blocks but have no 'end' and no skeleton.
-let s:inline_directives = ['maxcore', 'moinp', 'moread']
+let s:inline_directives = ['compound', 'maxcore', 'moinp', 'moread']
 
 " Completion items for block names. Full blocks carry user_data so MaybeSkeleton
 " inserts the skeleton; inline directives don't.
@@ -556,6 +556,12 @@ function! s:IsMOInpLine()
   return before =~? '^\s*%moinp\s'
 endfunction
 
+" True when cursor is past %compound (ready for the .cmp filename).
+function! s:IsCompoundLine()
+  let before = strpart(getline('.'), 0, col('.') - 1)
+  return before =~? '^\s*%compound\s'
+endfunction
+
 " Candidates for the current cursor context (bang line or inside a block).
 function! s:Candidates(base)
   let line = getline('.')
@@ -568,6 +574,11 @@ function! s:Candidates(base)
   if s:IsMOInpLine()
     let dir = expand('%:p:h')
     return map(glob(dir . '/' . a:base . '*.gbw', 0, 1), {_, f -> fnamemodify(f, ':t')})
+  endif
+
+  if s:IsCompoundLine()
+    let dir = expand('%:p:h')
+    return map(glob(dir . '/' . a:base . '*.cmp', 0, 1), {_, f -> fnamemodify(f, ':t')})
   endif
 
   let block = s:DetectBlock()
@@ -678,6 +689,25 @@ function! s:AutoTrigger()
     " which calls s:Candidates → s:IsMOInpLine path for prefix filtering
   endif
 
+  " %compound line: auto-insert "" on first space, then complete .cmp inside them
+  if s:IsCompoundLine()
+    if ch ==# ' ' && getline('.') =~? '^\s*%compound\s*$'
+      " First space after %compound: insert "", park cursor inside, trigger omni
+      call feedkeys('""' . "\<Left>" . "\<C-x>\<C-o>", 'n')
+      return
+    endif
+    if ch ==# '"'
+      " Opening quote typed manually: show all cmp files
+      let matches = s:Candidates('')
+      if !empty(matches)
+        call complete(col + 1, matches)
+      endif
+      return
+    endif
+    " \w chars inside quotes fall through to the general handler below,
+    " which calls s:Candidates → s:IsCompoundLine path for prefix filtering
+  endif
+
   " Block solvent-value context triggered by space: 'smdsolvent |'
   if ch ==# ' '
     let m = matchlist(strpart(line, 0, col - 1), '^\s*\(\w\+\)\s*$\c')
@@ -751,6 +781,14 @@ function! s:MaybeSkeleton()
 
   " After a .gbw completion on a %moinp line, add closing " if not present
   if getline('.') =~? '^\s*%moinp\s'
+    if !empty(get(item, 'word', '')) && getline('.')[col('.') - 1] !=# '"'
+      call feedkeys('"', 'n')
+    endif
+    return
+  endif
+
+  " After a .cmp completion on a %compound line, add closing " if not present
+  if getline('.') =~? '^\s*%compound\s'
     if !empty(get(item, 'word', '')) && getline('.')[col('.') - 1] !=# '"'
       call feedkeys('"', 'n')
     endif
