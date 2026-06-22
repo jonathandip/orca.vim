@@ -579,7 +579,7 @@ syn match orcaKeyword contained "\<KCGRID3\(_OLD\)\?\>"
 syn match orcaKeyword contained "\<KCGRID4\(_OLD\)\?\>"
 syn match orcaKeyword contained "\<NOFINALGRID\(_OLD\)\?\>"
 syn keyword orcaKeyword contained NOFINALGRIDX USEFINALGRIDX USESFITTING NOSFITTING RIJKSINGLESFOCK NORIJKSINGLESFOCK RCSINGLESFOCK NORCSINGLESFOCK
-syn match orcaKeyword contained "\<DEFGRID\(1\|2\|3\)\>"
+syn keyword orcaKeyword contained DEFGRID1 DEFGRID2 DEFGRID3
 syn keyword orcaKeyword contained REFGRID
 syn match orcaKeyword contained "\<\(NO\)\?XCFUN\>"
 syn keyword orcaKeyword contained NoXCFUN
