@@ -1261,7 +1261,9 @@ syn keyword orcaBasis contained PCH-1 PCH-2 PCH-3 PCH-4 AUG-PCH-1 AUG-PCH-2 AUG-
 
 " ============================================================
 " Block directives (% ... end)
-" - Inline directives: %maxcore, %moread (no end)
+" - Inline directives: %maxcore, %moread, %moinp, and the file form of
+"   %compound (no end). These must NOT appear in the methodBlock start=
+"   alternation, or the region swallows everything until the next col-0 'end'.
 " - Paired regions: all others
 " To add a new block:
 "   1. append its name to the methodBlock start= alternation below
@@ -1270,6 +1272,7 @@ syn keyword orcaBasis contained PCH-1 PCH-2 PCH-3 PCH-4 AUG-PCH-1 AUG-PCH-2 AUG-
 syn match orcaBlock "%maxcore\>" contains=startBlock
 syn match orcaBlock "%moread\>" contains=startBlock
 syn match orcaBlock "%moinp\>" contains=startBlock
+syn match orcaBlock "%compound\>" contains=startBlock
 
 " block directive regions
 " end= matches 'end' only at column 0 (no leading whitespace), so indented
@@ -1277,11 +1280,12 @@ syn match orcaBlock "%moinp\>" contains=startBlock
 " do not close the outer block region.
 " To add a new block: add its name to the alternation below AND to orcaBlock above.
 syn region methodBlock
-         \ start="%\(method\|basis\|scf\|mp2\|cis\|tddft\|mrci\|geom\|freq\|vpt2\|esd\|dftmrci\|moinp\)"
+         \ start="%\(method\|basis\|scf\|mp2\|cis\|tddft\|mrci\|geom\|freq\|vpt2\|esd\|dftmrci\)"
          \ start="%\(coords\|output\|ci\|plots\|parameters\|ndoparas\|rel\|dkh\|pal\|cosmo\|rr\)"
          \ start="%\(eprnmr\|loc\|elprop\|casscf\|mcrpa\|mdci\|dlpnocc\|mm\|mtr\|xes\|chelpg\)"
          \ start="%\(numgrad\|mecp\|ecp\|rocis\|mrcc\|cipsi\|ice\|iceci\|md\|nbo\|lft\|autoci\)"
-         \ start="%\(cpcm\|cim\|compound\|neb\|irc\|anmr\|cregen\|confscript\|anmrrc\|qmmm\)"
+         \ start="%\(cpcm\|cim\|neb\|irc\|anmr\|cregen\|confscript\|anmrrc\|qmmm\)"
+         \ start="%compound\s*$"
          \ start="%\(conical\|ecrism\|shark\|symmetry\|sym\|xtb\|goat\|docker\|solvator\)"
          \ start="%\(casresp\|frag\|casdft\|mcd\|qgprop\|magrelax\|eda\)"
          \ end="^end\>"
